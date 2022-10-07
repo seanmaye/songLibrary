@@ -13,10 +13,10 @@
             <Font size="36.0" />
          </font>
       </Label>
-      <TextField layoutX="51.0" layoutY="105.0" prefHeight="26.0" prefWidth="299.0" promptText="Song Name" />
-      <TextField layoutX="51.0" layoutY="145.0" prefHeight="26.0" prefWidth="299.0" promptText="Artist" />
-      <TextField layoutX="51.0" layoutY="187.0" prefHeight="26.0" prefWidth="299.0" promptText="Album" />
-      <TextField layoutX="51.0" layoutY="230.0" prefHeight="26.0" prefWidth="299.0" promptText="Year Released" />
+      <TextField fx:id="songField" layoutX="51.0" layoutY="105.0" prefHeight="26.0" prefWidth="299.0" promptText="Song Name" />
+      <TextField fx:id="artistField" layoutX="51.0" layoutY="145.0" prefHeight="26.0" prefWidth="299.0" promptText="Artist" />
+      <TextField fx:id="albumField" layoutX="51.0" layoutY="187.0" prefHeight="26.0" prefWidth="299.0" promptText="Album" />
+      <TextField fx:id="yearField" layoutX="51.0" layoutY="230.0" prefHeight="26.0" prefWidth="299.0" promptText="Year Released" />
       <Button layoutX="149.0" layoutY="306.0" mnemonicParsing="false" onAction="#confirm" prefHeight="44.0" prefWidth="102.0" text="CONFIRM" />
    </children>
 </AnchorPane>
