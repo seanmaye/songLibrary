@@ -28,7 +28,7 @@ public class HomeScreenController {
 	private Button deleteButton;
 	@FXML
 	private ListView<Song> listView;
-	private ObservableList<Song> list = FXCollections.observableArrayList();
+	private static ObservableList<Song> list = FXCollections.observableArrayList();
 	private Scene scene;
 	private Stage stage;
 	private Parent root;
@@ -40,26 +40,45 @@ public class HomeScreenController {
 
 	}
 
+	private static Song passSong;
+
+	public static Song getPassSong() {
+		return passSong;
+	}
+
+	public static void setPassSong(Song song) {
+		passSong = song;
+	}
+
+	public static ObservableList<Song> getList() {
+		return list;
+	}
+
+	public static void addElement(Song song) {
+		list.add(song);
+	}
+
+	public static void editElement(Song toReplace, Song toAdd) {
+		int index = list.indexOf(toReplace);
+		list.set(index, toAdd);
+	}
+
+	public static void removeElement(Song toRemove) {
+		list.remove(toRemove);
+	}
+
 	public void addSong(ActionEvent e) throws IOException {
-		// Just testing what adding a song looks like
-		/*Song test = new Song("Yah Mean", "Playboi Carti", "Playboi Carti", 2017);
-		list.add(test);*/
 		Parent root = FXMLLoader.load(getClass().getResource("addScreenfx.fxml"));
-		stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+		stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
 		scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
 	}
 
 	public void editSong(ActionEvent e) throws IOException {
-		// Just testing what editing a song looks like need to click on it to change
-		/*System.out.println("Edit song");
-		Song.editArtist(list.get(0), "Stop Breathing");
-		Song.editAlbum(list.get(0), "Whole Lotta Red");
-		Song.editYear(list.get(0), 2020);
-		listView.setItems(list);*/
+		passSong = listView.getSelectionModel().getSelectedItem();
 		Parent root = FXMLLoader.load(getClass().getResource("editScreenfx.fxml"));
-		stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+		stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
 		scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
@@ -67,16 +86,13 @@ public class HomeScreenController {
 	}
 
 	public void deleteSong(ActionEvent e) throws IOException {
-		/*System.out.println("delete song");
-		 Just testing what removing a song looks like
-		list.remove(0);
-		listView.setItems(list);*/
+		passSong = listView.getSelectionModel().getSelectedItem();
 		Parent root = FXMLLoader.load(getClass().getResource("deleteScreenfx.fxml"));
-		stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+		stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
 		scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
-		
+
 	}
 
 }
