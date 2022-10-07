@@ -4,6 +4,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Comparator;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -33,7 +35,9 @@ public class HomeScreenController {
 	private Stage stage;
 	private Parent root;
 
+	
 	public void initialize() {
+		Collections.sort(list, Comparator.comparing(Song::getName).thenComparing(Song::getArtist));
 		listView.setItems(list);
 		// put the songs
 		// select the top one if there is one
