@@ -3,13 +3,14 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="songlibrary.HomeScreenController">
    <children>
       <Button layoutX="16.0" layoutY="333.0" mnemonicParsing="false" onAction="#addSong" prefHeight="44.0" prefWidth="102.0" text="ADD" />
-      <ListView fx:id="listView" layoutX="16.0" layoutY="100.0" prefHeight="200.0" prefWidth="364.0" />
+      <ListView fx:id="listView" layoutX="16.0" layoutY="100.0" prefHeight="200.0" prefWidth="160.0" />
       <Label layoutX="105.0" layoutY="31.0" text="Song Library">
          <font>
             <Font size="36.0" />
@@ -17,5 +18,23 @@
       </Label>
       <Button layoutX="147.0" layoutY="333.0" mnemonicParsing="false" onAction="#editSong" prefHeight="44.0" prefWidth="102.0" text="EDIT" />
       <Button layoutX="278.0" layoutY="333.0" mnemonicParsing="false" onAction="#deleteSong" prefHeight="44.0" prefWidth="102.0" text="DELETE" />
+      <Label layoutX="274.0" layoutY="100.0" text="Title">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="songText" layoutX="219.0" layoutY="128.0" />
+      <Label layoutX="272.0" layoutY="174.0" text="Artist">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="albumYearText" layoutX="219.0" layoutY="274.0" />
+      <Label layoutX="243.0" layoutY="248.0" text="Album (Year)">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="artistText" layoutX="219.0" layoutY="200.0" />
    </children>
 </AnchorPane>
