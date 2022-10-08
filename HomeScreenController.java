@@ -10,12 +10,15 @@ import java.util.Comparator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class HomeScreenController {
@@ -30,21 +33,37 @@ public class HomeScreenController {
 	private Button deleteButton;
 	@FXML
 	private ListView<Song> listView;
+	@FXML
+	private TextField songText;
+	@FXML
+	private TextField artistText;
+	@FXML
+	private TextField albumYearText;
+
 	private static ObservableList<Song> list = FXCollections.observableArrayList();
 	private Scene scene;
 	private Stage stage;
 	private Parent root;
+	private static Song passSong;
 
-	
 	public void initialize() {
-		Collections.sort(list, Comparator.comparing(Song::getName).thenComparing(Song::getArtist));
+		Collections.sort(list, Comparator.comparing(Song::getName, String.CASE_INSENSITIVE_ORDER)
+				.thenComparing(Song::getArtist, String.CASE_INSENSITIVE_ORDER));
 		listView.setItems(list);
+		songText.setEditable(false);
+		songText.setMouseTransparent(true);
+		songText.setFocusTraversable(false);
+		artistText.setEditable(false);
+		artistText.setMouseTransparent(true);
+		artistText.setFocusTraversable(false);
+		albumYearText.setEditable(false);
+		albumYearText.setMouseTransparent(true);
+		albumYearText.setFocusTraversable(false);
+
 		// put the songs
 		// select the top one if there is one
 
 	}
-
-	private static Song passSong;
 
 	public static Song getPassSong() {
 		return passSong;
