@@ -14,10 +14,12 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -109,18 +111,19 @@ public class HomeScreenController {
 			Song test = list.get(i);
 			if (test.getName().compareTo(toCheck.getName()) == 0
 					&& test.getArtist().compareTo(toCheck.getArtist()) == 0) {
+				System.out.println("Comparing: " + test.getName() + " to " + toCheck.getName());
 				ret = true;
 			}
 		}
 		return ret;
 	}
 
-	public static boolean checkElementEdit(Song toCheck, Song toAvoid) {
+	public static boolean checkElementEdit(Song toCheck) {
 		boolean ret = false;
 		for (int i = 0; i < list.size(); i++) {
 			Song test = list.get(i);
-			if (test.getName().compareTo(toAvoid.getName()) == 0
-					&& test.getArtist().compareTo(toAvoid.getArtist()) == 0) {
+			int toAvoid = list.indexOf(toCheck);
+			if (i == toAvoid) {
 				// Avoid, this is the item were changing
 			} else if (test.getName().compareTo(toCheck.getName()) == 0
 					&& test.getArtist().compareTo(toCheck.getArtist()) == 0) {
@@ -141,7 +144,10 @@ public class HomeScreenController {
 	public void editSong(ActionEvent e) throws IOException {
 		passSong = listView.getSelectionModel().getSelectedItem();
 		if (passSong == null) {
-			System.out.println("POP UP");
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("ERROR");
+			alert.setContentText("No song selected!");
+			alert.showAndWait();
 		} else {
 			Parent root = FXMLLoader.load(getClass().getResource("editScreenfx.fxml"));
 			stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
@@ -155,7 +161,10 @@ public class HomeScreenController {
 	public void deleteSong(ActionEvent e) throws IOException {
 		passSong = listView.getSelectionModel().getSelectedItem();
 		if (passSong == null) {
-			System.out.println("POP UP");
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("ERROR");
+			alert.setContentText("No song selected!");
+			alert.showAndWait();
 		} else {
 			Parent root = FXMLLoader.load(getClass().getResource("deleteScreenfx.fxml"));
 			stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
