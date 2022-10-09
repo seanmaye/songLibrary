@@ -47,12 +47,12 @@ public class HomeScreenController {
 	private static Song passSong;
 
 	public void initialize() {
-		//Sorts List Alphabetically First by Song Name then by Artist Name
+		// Sorts List Alphabetically First by Song Name then by Artist Name
 		Collections.sort(list, Comparator.comparing(Song::getName, String.CASE_INSENSITIVE_ORDER)
 				.thenComparing(Song::getArtist, String.CASE_INSENSITIVE_ORDER));
 		listView.setItems(list);
-		
-		//Sets our information display to be un-editable
+
+		// Sets our information display to be un-editable
 		songText.setEditable(false);
 		songText.setMouseTransparent(true);
 		songText.setFocusTraversable(false);
@@ -63,21 +63,20 @@ public class HomeScreenController {
 		albumYearText.setMouseTransparent(true);
 		albumYearText.setFocusTraversable(false);
 
-		//Still need a way to select top song and make persistence
+		// Still need a way to select top song and make persistence
 
 	}
-	
-   /* public void start(Stage primaryStage) {
 
-        // Add change listener
-        booleanProperty.addListener(new ChangeListener<Boolean>() {
-
-            @Override
-            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                System.out.println("changed " + oldValue + "->" + newValue);
-                myFunc();
-            }
-        });*/
+	/*
+	 * public void start(Stage primaryStage) {
+	 * 
+	 * // Add change listener booleanProperty.addListener(new
+	 * ChangeListener<Boolean>() {
+	 * 
+	 * @Override public void changed(ObservableValue<? extends Boolean> observable,
+	 * Boolean oldValue, Boolean newValue) { System.out.println("changed " +
+	 * oldValue + "->" + newValue); myFunc(); } });
+	 */
 
 	public static Song getPassSong() {
 		return passSong;
@@ -103,13 +102,29 @@ public class HomeScreenController {
 	public static void removeElement(Song toRemove) {
 		list.remove(toRemove);
 	}
-	public static boolean checkElement(Song toCheck) {
-		int size = list.size();
+
+	public static boolean checkElementAdd(Song toCheck) {
 		boolean ret = false;
-		for(int i=0; i<list.size(); i++) {
-			Song test=list.get(i);
-			if(test.getName().compareTo(toCheck.getName())==0 && test.getArtist().compareTo(toCheck.getArtist())==0){
-				ret=true;
+		for (int i = 0; i < list.size(); i++) {
+			Song test = list.get(i);
+			if (test.getName().compareTo(toCheck.getName()) == 0
+					&& test.getArtist().compareTo(toCheck.getArtist()) == 0) {
+				ret = true;
+			}
+		}
+		return ret;
+	}
+
+	public static boolean checkElementEdit(Song toCheck, Song toAvoid) {
+		boolean ret = false;
+		for (int i = 0; i < list.size(); i++) {
+			Song test = list.get(i);
+			if (test.getName().compareTo(toAvoid.getName()) == 0
+					&& test.getArtist().compareTo(toAvoid.getArtist()) == 0) {
+				// Avoid, this is the item were changing
+			} else if (test.getName().compareTo(toCheck.getName()) == 0
+					&& test.getArtist().compareTo(toCheck.getArtist()) == 0) {
+				ret = true;
 			}
 		}
 		return ret;
@@ -125,28 +140,28 @@ public class HomeScreenController {
 
 	public void editSong(ActionEvent e) throws IOException {
 		passSong = listView.getSelectionModel().getSelectedItem();
-		if(passSong==null) {
+		if (passSong == null) {
 			System.out.println("POP UP");
-		}else {
-		Parent root = FXMLLoader.load(getClass().getResource("editScreenfx.fxml"));
-		stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-		scene = new Scene(root);
-		stage.setScene(scene);
-		stage.show();
+		} else {
+			Parent root = FXMLLoader.load(getClass().getResource("editScreenfx.fxml"));
+			stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+			scene = new Scene(root);
+			stage.setScene(scene);
+			stage.show();
 		}
 
 	}
 
 	public void deleteSong(ActionEvent e) throws IOException {
 		passSong = listView.getSelectionModel().getSelectedItem();
-		if(passSong==null) {
+		if (passSong == null) {
 			System.out.println("POP UP");
-		}else {
-		Parent root = FXMLLoader.load(getClass().getResource("deleteScreenfx.fxml"));
-		stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-		scene = new Scene(root);
-		stage.setScene(scene);
-		stage.show();
+		} else {
+			Parent root = FXMLLoader.load(getClass().getResource("deleteScreenfx.fxml"));
+			stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+			scene = new Scene(root);
+			stage.setScene(scene);
+			stage.show();
 		}
 
 	}
