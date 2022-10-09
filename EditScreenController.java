@@ -4,11 +4,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -41,66 +45,83 @@ public class EditScreenController {
 	}
 
 	// Switches back to main screen
-	
+
 	public void confirm(ActionEvent e) throws IOException {
 		int intTest;
 		// tests if Input to year is an integer
-		if (yearField.getText().trim().isEmpty() == false) {
+		if ((songField.getText() == null || songField.getText().trim().isEmpty())
+				|| (artistField.getText() == null || artistField.getText().trim().isEmpty())) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("ERROR");
+			alert.setContentText("Song needs at least a NAME and a ARTIST");
+			alert.showAndWait();
+			// checks if year is less than 0
+		} else if (yearField.getText().trim().isEmpty() == false) {
 			try {
 				intTest = Integer.parseInt(yearField.getText());
 				// Checks if Song or album field are empty
 			} catch (NumberFormatException ex) {
-				System.out.println("POP UP0");
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("ERROR");
+				alert.setContentText("Year must be a POSITIVE integer");
+				alert.showAndWait();
 			}
-		}
-
-		if ((songField.getText() == null || songField.getText().trim().isEmpty())
-				|| (artistField.getText() == null || artistField.getText().trim().isEmpty())) {
-			System.out.println("POP UP1");
-			// checks if year is less than 0
 		} else if (yearField.getText().trim().isEmpty() == false && Integer.parseInt(yearField.getText().trim()) <= 0) {
-			System.out.println("POP UP2");
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("ERROR");
+			alert.setContentText("Year must be a POSITIVE integer");
+			alert.showAndWait();
 			// checks if | character is in album/song/artist name
 		} else if (artistField.getText().indexOf('|') != -1
 				|| ((albumField.getText() == null || albumField.getText().trim().isEmpty()) == false
 						&& albumField.getText().indexOf('|') != -1)
 				|| songField.getText().indexOf('|') != -1) {
-			System.out.println("POP UP3");
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("ERROR");
+			alert.setContentText("Invalid character: | ");
+			alert.showAndWait();
 			// adds song to list
 		} else {
-			Song toAdd;
 			if ((albumField.getText() == null || albumField.getText().trim().isEmpty())
 					&& (yearField.getText() == null || yearField.getText().trim().isEmpty())) {
-				String song = songField.getText().trim();
-				String artist = artistField.getText().trim();
-				toAdd = new Song(song, artist);
+				editSong.editName(songField.getText().trim());
+				editSong.editArtist(artistField.getText().trim());
 			} else if (albumField.getText() == null || albumField.getText().trim().isEmpty()) {
-				String song = songField.getText().trim();
-				String artist = artistField.getText().trim();
-				int year = Integer.parseInt(yearField.getText().trim());
-				toAdd = new Song(song, artist, year);
+				editSong.editName(songField.getText().trim());
+				editSong.editArtist(artistField.getText().trim());
+				editSong.editYear(Integer.parseInt(yearField.getText().trim()));
 			} else if (yearField.getText() == null || yearField.getText().trim().isEmpty()) {
-				String song = songField.getText().trim();
-				String artist = artistField.getText().trim();
-				String album = albumField.getText().trim();
-				toAdd = new Song(song, artist, album);
+				editSong.editName(songField.getText().trim());
+				editSong.editArtist(artistField.getText().trim());
+				editSong.editAlbum(albumField.getText().trim());
 			} else {
-				String song = songField.getText().trim();
-				String artist = artistField.getText().trim();
-				String album = albumField.getText().trim();
-				int year = Integer.parseInt(yearField.getText().trim());
-				toAdd = new Song(song, artist, album, year);
+				editSong.editName(songField.getText().trim());
+				editSong.editArtist(artistField.getText().trim());
+				editSong.editAlbum(albumField.getText().trim());
+				editSong.editYear(Integer.parseInt(yearField.getText().trim()));
 			}
 
-			if (HomeScreenController.checkElementEdit(toAdd, editSong) == true) {
-				System.out.println("Already in list (popup)");
+			if (HomeScreenController.checkElementEdit(editSong) == true) {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("ERROR");
+				alert.setContentText("Song is already in list!");
+				alert.showAndWait();
 			} else {
-				HomeScreenController.editElement(editSong, toAdd);
-				Parent root = FXMLLoader.load(getClass().getResource("homeScreenfx.fxml"));
-				stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-				scene = new Scene(root);
-				stage.setScene(scene);
-				stage.show();
+				Alert alert = new Alert(AlertType.CONFIRMATION);
+				alert.setTitle("Confirm Edit");
+				alert.setContentText("Press OK to add edited song to the list");
+
+				Optional<ButtonType> result = alert.showAndWait();
+
+				if ((result.isPresent()) && (result.get() == ButtonType.OK)) {
+					Parent root = FXMLLoader.load(getClass().getResource("homeScreenfx.fxml"));
+					stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+					scene = new Scene(root);
+					stage.setScene(scene);
+					stage.show();
+
+				}
+
 			}
 
 		}
