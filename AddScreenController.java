@@ -81,7 +81,7 @@ public class AddScreenController {
 				test = new Song(song, artist, album, year);
 			}
 
-			if (HomeScreenController.checkElement(test) == true) {
+			if (HomeScreenController.checkElementAdd(test) == true) {
 				System.out.println("Already in list (popup)");
 			} else {
 				HomeScreenController.addElement(test);
