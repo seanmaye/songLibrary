@@ -28,20 +28,20 @@ public class Song {
 		this.year = year;
 	}
 
-	public void editName(Song song, String name) {
-		song.name = name;
+	public void editName(String name) {
+		this.name = name;
 	}
 
-	public static void editArtist(Song song, String artist) {
-		song.artist = artist;
+	public  void editArtist(String artist) {
+		this.artist = artist;
 	}
 
-	public static void editAlbum(Song song, String album) {
-		song.album = album;
+	public  void editAlbum(String album) {
+		this.album = album;
 	}
 
-	public static void editYear(Song song, int year) {
-		song.year = year;
+	public void editYear(int year) {
+		this.year = year;
 	}
 
 	public String getName() {
