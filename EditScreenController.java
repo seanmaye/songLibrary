@@ -41,6 +41,7 @@ public class EditScreenController {
 	}
 
 	// Switches back to main screen
+	
 	public void confirm(ActionEvent e) throws IOException {
 		int intTest;
 		// tests if Input to year is an integer
@@ -91,7 +92,7 @@ public class EditScreenController {
 				toAdd = new Song(song, artist, album, year);
 			}
 
-			if (HomeScreenController.checkElement(toAdd) == true) {
+			if (HomeScreenController.checkElementEdit(toAdd, editSong) == true) {
 				System.out.println("Already in list (popup)");
 			} else {
 				HomeScreenController.editElement(editSong, toAdd);
