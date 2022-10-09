@@ -111,7 +111,6 @@ public class HomeScreenController {
 			Song test = list.get(i);
 			if (test.getName().compareTo(toCheck.getName()) == 0
 					&& test.getArtist().compareTo(toCheck.getArtist()) == 0) {
-				System.out.println("Comparing: " + test.getName() + " to " + toCheck.getName());
 				ret = true;
 			}
 		}
