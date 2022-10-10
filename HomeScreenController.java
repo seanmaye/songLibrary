@@ -18,6 +18,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MultipleSelectionModel;
+import javafx.scene.control.SelectionModel;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
@@ -54,6 +56,40 @@ public class HomeScreenController {
 				.thenComparing(Song::getArtist, String.CASE_INSENSITIVE_ORDER));
 		listView.setItems(list);
 
+		SelectionModel<Song> selectionModel = listView.getSelectionModel();
+		if (passSong == null) {
+			selectionModel.select(0);
+			Song song = listView.getSelectionModel().getSelectedItem();
+			if (song != null) {
+				songText.setText(song.getName());
+				artistText.setText(song.getArtist());
+				if (song.getYear() != 0 && song.getAlbum() != null) {
+					albumYearText.setText(song.getAlbum() + " (" + song.getYear() + ")");
+				} else if (song.getYear() == 0) {
+					albumYearText.setText(song.getAlbum());
+				} else if (song.getAlbum() == null) {
+					albumYearText.setText("(" + song.getYear() + ")");
+				} else {
+					albumYearText.clear();
+				}
+			}
+		} else {
+			selectionModel.select(passSong);
+			Song song = listView.getSelectionModel().getSelectedItem();
+			if (song != null) {
+				songText.setText(song.getName());
+				artistText.setText(song.getArtist());
+				if (song.getYear() != 0 && song.getAlbum() != null) {
+					albumYearText.setText(song.getAlbum() + " (" + song.getYear() + ")");
+				} else if (song.getYear() == 0) {
+					albumYearText.setText(song.getAlbum());
+				} else if (song.getAlbum() == null) {
+					albumYearText.setText("(" + song.getYear() + ")");
+				} else {
+					albumYearText.clear();
+				}
+			}
+		}
 		// Sets our information display to be un-editable
 		songText.setEditable(false);
 		songText.setMouseTransparent(true);
@@ -64,21 +100,11 @@ public class HomeScreenController {
 		albumYearText.setEditable(false);
 		albumYearText.setMouseTransparent(true);
 		albumYearText.setFocusTraversable(false);
-
-		// Still need a way to select top song and make persistence
-
+		addButton.setFocusTraversable(false);
+		editButton.setFocusTraversable(false);
+		deleteButton.setFocusTraversable(false);
 	}
 
-	/*
-	 * public void start(Stage primaryStage) {
-	 * 
-	 * // Add change listener booleanProperty.addListener(new
-	 * ChangeListener<Boolean>() {
-	 * 
-	 * @Override public void changed(ObservableValue<? extends Boolean> observable,
-	 * Boolean oldValue, Boolean newValue) { System.out.println("changed " +
-	 * oldValue + "->" + newValue); myFunc(); } });
-	 */
 
 	public static Song getPassSong() {
 		return passSong;
@@ -130,6 +156,24 @@ public class HomeScreenController {
 			}
 		}
 		return ret;
+	}
+
+	public void displaySong(MouseEvent e) throws IOException {
+		Song song = listView.getSelectionModel().getSelectedItem();
+		if (song != null) {
+			songText.setText(song.getName());
+			artistText.setText(song.getArtist());
+			if (song.getYear() != 0 && song.getAlbum() != null) {
+				albumYearText.setText(song.getAlbum() + " (" + song.getYear() + ")");
+			} else if (song.getYear() == 0) {
+				albumYearText.setText(song.getAlbum());
+			} else if (song.getAlbum() == null) {
+
+				albumYearText.setText("(" + song.getYear() + ")");
+			} else {
+				albumYearText.clear();
+			}
+		}
 	}
 
 	public void addSong(ActionEvent e) throws IOException {
