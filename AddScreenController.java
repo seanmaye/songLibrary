@@ -38,14 +38,8 @@ public class AddScreenController {
 
 		int intTest;
 		// tests if Input to year is an integer
-		if ((songField.getText() == null || songField.getText().trim().isEmpty())
-				|| (artistField.getText() == null || artistField.getText().trim().isEmpty())) {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("ERROR");
-			alert.setContentText("Song needs at least a NAME and a ARTIST");
-			alert.showAndWait();
-			// checks if year is less than 0
-		} else if (yearField.getText().trim().isEmpty() == false) {
+
+		if (yearField.getText().trim().isEmpty() == false) {
 			try {
 				intTest = Integer.parseInt(yearField.getText());
 				// Checks if Song or album field are empty
@@ -55,6 +49,14 @@ public class AddScreenController {
 				alert.setContentText("Year must be a POSITIVE integer");
 				alert.showAndWait();
 			}
+		}
+		if ((songField.getText() == null || songField.getText().trim().isEmpty())
+				|| (artistField.getText() == null || artistField.getText().trim().isEmpty())) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("ERROR");
+			alert.setContentText("Song needs at least a NAME and a ARTIST");
+			alert.showAndWait();
+			// checks if year is less than 0
 		} else if (yearField.getText().trim().isEmpty() == false && Integer.parseInt(yearField.getText().trim()) <= 0) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("ERROR");
@@ -103,24 +105,20 @@ public class AddScreenController {
 			} else {
 				Alert alert = new Alert(AlertType.CONFIRMATION);
 				alert.setTitle("Confirm Action");
-				String s = "Press OK to add the song to the list";
-				alert.setContentText(s);
+				alert.setContentText("Press OK to add the song to the list");
 
 				Optional<ButtonType> result = alert.showAndWait();
-
+				
 				if ((result.isPresent()) && (result.get() == ButtonType.OK)) {
 					HomeScreenController.addElement(test);
+					HomeScreenController.setPassSong(test);
 					Parent root = FXMLLoader.load(getClass().getResource("homeScreenfx.fxml"));
 					stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
 					scene = new Scene(root);
 					stage.setScene(scene);
 					stage.show();
-
 				}
-
 			}
-
 		}
-
 	}
 }
