@@ -9,15 +9,15 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="songlibrary.HomeScreenController">
    <children>
-      <Button layoutX="16.0" layoutY="333.0" mnemonicParsing="false" onAction="#addSong" prefHeight="44.0" prefWidth="102.0" text="ADD" />
-      <ListView fx:id="listView" layoutX="16.0" layoutY="100.0" prefHeight="200.0" prefWidth="160.0" />
+      <Button fx:id="addButton" layoutX="16.0" layoutY="333.0" mnemonicParsing="false" onAction="#addSong" prefHeight="44.0" prefWidth="102.0" text="ADD" />
+      <ListView fx:id="listView" layoutX="16.0" layoutY="100.0" onMouseClicked="#displaySong" prefHeight="200.0" prefWidth="160.0" />
       <Label layoutX="105.0" layoutY="31.0" text="Song Library">
          <font>
             <Font size="36.0" />
          </font>
       </Label>
-      <Button layoutX="147.0" layoutY="333.0" mnemonicParsing="false" onAction="#editSong" prefHeight="44.0" prefWidth="102.0" text="EDIT" />
-      <Button layoutX="278.0" layoutY="333.0" mnemonicParsing="false" onAction="#deleteSong" prefHeight="44.0" prefWidth="102.0" text="DELETE" />
+      <Button fx:id="editButton" layoutX="147.0" layoutY="333.0" mnemonicParsing="false" onAction="#editSong" prefHeight="44.0" prefWidth="102.0" text="EDIT" />
+      <Button fx:id="deleteButton" layoutX="278.0" layoutY="333.0" mnemonicParsing="false" onAction="#deleteSong" prefHeight="44.0" prefWidth="102.0" text="DELETE" />
       <Label layoutX="274.0" layoutY="100.0" text="Title">
          <font>
             <Font size="20.0" />
