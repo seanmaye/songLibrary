@@ -88,6 +88,7 @@ public class EditScreenController {
 				editSong.editName(songField.getText().trim());
 				editSong.editArtist(artistField.getText().trim());
 				editSong.editAlbum(null);
+				editSong.editYear(0);
 			} else if (albumField.getText() == null || albumField.getText().trim().isEmpty()) {
 				editSong.editName(songField.getText().trim());
 				editSong.editArtist(artistField.getText().trim());
